@@ -1,0 +1,6 @@
+*.pdf
+.vscode/
+a.out
+*.o
+*.a
+.gitignore_file/
