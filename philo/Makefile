@@ -1,13 +1,16 @@
 NAME				=	philo
 CFLAGS			=	-Wall -Wextra -Werror
 SRC_DIR			=	./src
-SRCS 				= main.c
+SRCS 				= main.c \
+							validate_file/validate_args.c \
+							func_utils/ft_atoi.c \
+							func_utils/ft_isdigit.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS 				= ${SRCS:%.c=%.o}
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) philosophers.h
 	cc $(CFLAGS) $(OBJS) -o $@
 
 clean :
