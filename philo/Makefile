@@ -2,10 +2,10 @@ NAME				=	philo
 CFLAGS			=	-Wall -Wextra -Werror
 SRC_DIR			=	./src
 SRCS 				= main.c \
-							validate_file/validate_args.c \
-							func_utils/ft_atoi.c \
-							func_utils/ft_isdigit.c \
-							init.c
+							validation/validate_args.c \
+							utils/ft_atoi.c \
+							utils/ft_isdigit.c \
+							service/init.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS 				= ${SRCS:%.c=%.o}
 

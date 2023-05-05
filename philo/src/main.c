@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/06 03:49:40 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/06 03:55:36 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int	main(int argc, char **argv)
 	if (!is_validate_arg(argc, argv))
 		return (put_error_end_exit("Invalid argument."));
 	init_philo_env(argc, argv, &p_env);
+	
 	return (EXIT_SUCCESS);
 }
