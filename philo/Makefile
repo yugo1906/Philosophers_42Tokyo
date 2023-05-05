@@ -4,7 +4,8 @@ SRC_DIR			=	./src
 SRCS 				= main.c \
 							validate_file/validate_args.c \
 							func_utils/ft_atoi.c \
-							func_utils/ft_isdigit.c
+							func_utils/ft_isdigit.c \
+							init.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS 				= ${SRCS:%.c=%.o}
 
