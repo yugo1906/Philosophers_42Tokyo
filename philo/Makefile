@@ -6,7 +6,8 @@ SRCS 				= main.c \
 							validation/validate_args.c \
 							func_utils/ft_atoi.c \
 							func_utils/ft_isdigit.c \
-							philo_service/init.c
+							philo_service/init.c \
+							philo_service/put_timestamp.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS 				= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 

@@ -6,11 +6,11 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/06 03:55:36 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:50:03 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "philosophers.h"
 
 // ### memo
 // 1st arg : number of philosophers
@@ -27,11 +27,13 @@ static bool	put_error_end_exit(char *str)
 
 int	main(int argc, char **argv)
 {
-	t_philo_env	p_env;
+	t_philo_env		p_env;
+	struct timeval	tv;
+
+	put_time_in_ms(&tv);
 
 	if (!is_validate_arg(argc, argv))
 		return (put_error_end_exit("Invalid argument."));
 	init_philo_env(argc, argv, &p_env);
-	
 	return (EXIT_SUCCESS);
 }
