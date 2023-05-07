@@ -6,11 +6,11 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:41:05 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/06 01:44:33 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:24:34 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../philosophers.h"
+#include "philosophers.h"
 
 static bool	is_validate_digit(char *argv_str);
 static bool	is_validate_argc_5(int argc, char **argv);

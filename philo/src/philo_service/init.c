@@ -6,11 +6,11 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/06 04:07:21 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/07 11:23:07 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../philosophers.h"
+#include "philosophers.h"
 
 bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 {

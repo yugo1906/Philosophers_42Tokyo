@@ -1,21 +1,26 @@
 NAME				=	philo
-CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror -I ./include
 SRC_DIR			=	./src
+OBJ_DIR			=	./obj
 SRCS 				= main.c \
 							validation/validate_args.c \
-							utils/ft_atoi.c \
-							utils/ft_isdigit.c \
-							service/init.c
+							func_utils/ft_atoi.c \
+							func_utils/ft_isdigit.c \
+							philo_service/init.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
-OBJS 				= ${SRCS:%.c=%.o}
+OBJS 				= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) philosophers.h
+$(NAME) : $(OBJS)
 	cc $(CFLAGS) $(OBJS) -o $@
 
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(@D)
+	cc $(CFLAGS) -c $< -o $@
+
 clean :
-	rm -f $(OBJS)
+	rm -rf $(OBJ_DIR)
 
 fclean : clean
 	rm -f $(NAME)
