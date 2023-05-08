@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:06:48 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:25:10 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,21 @@
 
 typedef struct s_philo
 {
-	int				id;
+	unsigned int	id;
+	unsigned long	meal_time;
+	unsigned int	fork;
+	unsigned int	right_fork_id;
+	unsigned int	left_fork_id;
 	pthread_mutex_t	mutex_meal_time;
 }					t_philo;
 
 typedef struct s_philo_env
 {
-	int				num_of_philo;
-	int				time_to_die;
-	int				meal_time;
-	int				sleep_time;
-	int				num_of_must_eat;
+	unsigned int	num_of_philo;
+	unsigned int	time_to_die;
+	unsigned int	meal_time;
+	unsigned int	sleep_time;
+	unsigned int	num_of_must_eat;
 	t_philo			*philo;
 }					t_philo_env;
 

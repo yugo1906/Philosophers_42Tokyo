@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 07:54:49 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:25:44 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ int	main(int argc, char **argv)
 		return (put_error_end_exit("Failed to initialize philosophers."));
 	free_memory_philosophers(&p_env);
 	// todo: テスト実行関数_課題提出前に削除
-	// test_philo(&p_env);
+	test_philo(&p_env);
 	return (EXIT_SUCCESS);
 }
 
 // todo: テストコード_課題提出前に削除
 
-void test_put_philo(t_philo_env *p_env);
-void *start_routine(void *arg);
-void test_pthread_create(void);
+void		test_put_philo(t_philo_env *p_env);
+void		*start_routine(void *arg);
+void		test_pthread_create(void);
 
 void	test_philo(t_philo_env *p_env)
 {
@@ -62,7 +62,7 @@ void	test_philo(t_philo_env *p_env)
 
 void	test_put_philo(t_philo_env *p_env)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < p_env->num_of_philo)

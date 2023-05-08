@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:07:08 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:24:41 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 
 bool	init_philosophers(t_philo_env *p_env)
 {
-	int	i;
-	int	philo_num;
+	unsigned int	i;
+	unsigned int	philo_num;
 
 	i = 0;
 	philo_num = 1;
