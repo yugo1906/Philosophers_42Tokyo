@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:01:09 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:06:24 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	init_philosophers(t_philo_env *p_env)
 
 	i = 0;
 	philo_num = 1;
-	p_env->philo = malloc(sizeof(t_philo) * p_env->num_of_philo);
+	p_env->philo = (t_philo*)malloc(sizeof(t_philo) * p_env->num_of_philo);
 	if (p_env->philo == NULL)
 		return (ERROR);
 	while (i < p_env->num_of_philo)
