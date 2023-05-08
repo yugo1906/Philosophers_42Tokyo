@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/08 19:27:08 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:36:23 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ static bool	put_error_end_exit(char *str)
 	return (EXIT_FAILURE);
 }
 
+// todo: メモリーリークテスト_課題提出前に削除
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q philo");
+// }
+
 int	main(int argc, char **argv)
 {
 	t_philo_env	p_env;
@@ -36,6 +42,7 @@ int	main(int argc, char **argv)
 	init_philo_env(argc, argv, &p_env);
 	if (init_philosophers(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philosophers."));
+	free_memory_philosophers(&p_env);
 	// todo: テスト実行関数_課題提出前に削除
 	// test_philo(&p_env);
 	return (EXIT_SUCCESS);
