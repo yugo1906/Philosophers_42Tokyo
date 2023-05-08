@@ -17,6 +17,7 @@
 # define NO_NUM_OF_MUST_EAT -1
 
 # include <limits.h>
+# include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>

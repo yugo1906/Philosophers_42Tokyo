@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/08 19:36:23 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 07:54:49 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,17 @@ int	main(int argc, char **argv)
 }
 
 // todo: テストコード_課題提出前に削除
+
+void test_put_philo(t_philo_env *p_env);
+void *start_routine(void *arg);
+void test_pthread_create(void);
+
+void	test_philo(t_philo_env *p_env)
+{
+	test_put_philo(p_env);
+	test_pthread_create();
+}
+
 void	test_put_philo(t_philo_env *p_env)
 {
 	int	i;
@@ -61,7 +72,24 @@ void	test_put_philo(t_philo_env *p_env)
 	}
 }
 
-void	test_philo(t_philo_env *p_env)
+void	*start_routine(void *arg)
 {
-	test_put_philo(p_env);
+	(void)arg;
+	printf("New thread created!\n");
+	pthread_exit(NULL);
+}
+
+void	test_pthread_create(void)
+{
+	pthread_t	thread;
+	int			ret;
+
+	ret = pthread_create(&thread, NULL, start_routine, NULL);
+	if (ret != 0)
+	{
+		perror("pthread_create");
+		exit(EXIT_FAILURE);
+	}
+	// pthread_join(thread, NULL);
+	pthread_detach(thread);
 }
