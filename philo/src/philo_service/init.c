@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/07 11:23:07 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/08 09:57:10 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,23 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 	else
 		p_env->num_of_must_eat = NO_NUM_OF_MUST_EAT;
 	return (true);
+}
+
+bool	init_philosophers(t_philo_env *p_env, t_philo *philo)
+{
+	int	i;
+	int	philo_num;
+
+	i = 0;
+	philo_num = 1;
+	p_env->philo = malloc(sizeof(p_env->num_of_philo));
+	if (!philo)
+		return (ERROR);
+	while (i < p_env->num_of_philo)
+	{
+		p_env->philo[i].id = philo_num;
+		i++;
+		philo_num++;
+	}
+	return (NOT_ERROR);
 }
