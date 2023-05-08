@@ -6,12 +6,13 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/08 19:23:31 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:27:08 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+// todo: テストコード_課題提出前に削除
 void		test_philo(t_philo_env *p_env);
 // ### memo
 // 1st arg : number of philosophers
@@ -35,10 +36,12 @@ int	main(int argc, char **argv)
 	init_philo_env(argc, argv, &p_env);
 	if (init_philosophers(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philosophers."));
-	test_philo(&p_env);
+	// todo: テスト実行関数_課題提出前に削除
+	// test_philo(&p_env);
 	return (EXIT_SUCCESS);
 }
 
+// todo: テストコード_課題提出前に削除
 void	test_put_philo(t_philo_env *p_env)
 {
 	int	i;
