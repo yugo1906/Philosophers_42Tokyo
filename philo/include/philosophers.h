@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/08 19:37:41 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:00:34 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ typedef struct s_philo
 
 typedef struct s_philo_env
 {
-	int		num_of_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_of_must_eat;
-	t_philo	*philo;
-}			t_philo_env;
+	int				num_of_philo;
+	int				time_to_die;
+	int				meal_time;
+	int				sleep_time;
+	int				num_of_must_eat;
+	t_philo			*philo;
+}					t_philo_env;
 
 bool		is_validate_arg(int argc, char **argv);
 int			ft_atoi(const char *str);
