@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:00:34 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 08:06:48 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 
 typedef struct s_philo
 {
-	int		id;
-
-}			t_philo;
+	int				id;
+	pthread_mutex_t	mutex_meal_time;
+}					t_philo;
 
 typedef struct s_philo_env
 {
@@ -40,12 +40,12 @@ typedef struct s_philo_env
 	t_philo			*philo;
 }					t_philo_env;
 
-bool		is_validate_arg(int argc, char **argv);
-int			ft_atoi(const char *str);
-int			ft_isdigit(int c);
-bool		init_philo_env(int argc, char **argv, t_philo_env *p_env);
-void		put_time_in_ms(struct timeval *tv);
-bool		init_philosophers(t_philo_env *p_env);
-void		free_memory_philosophers(t_philo_env *p_env);
+bool				is_validate_arg(int argc, char **argv);
+int					ft_atoi(const char *str);
+int					ft_isdigit(int c);
+bool				init_philo_env(int argc, char **argv, t_philo_env *p_env);
+void				put_time_in_ms(struct timeval *tv);
+bool				init_philosophers(t_philo_env *p_env);
+void				free_memory_philosophers(t_philo_env *p_env);
 
 #endif
