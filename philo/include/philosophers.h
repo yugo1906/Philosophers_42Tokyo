@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/08 09:58:54 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/08 19:17:12 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
 bool		init_philo_env(int argc, char **argv, t_philo_env *p_env);
 void		put_time_in_ms(struct timeval *tv);
-bool		init_philosophers(t_philo_env *p_env, t_philo *philo);
+bool		init_philosophers(t_philo_env *p_env);
 
 #endif
