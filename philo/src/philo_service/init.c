@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:59:58 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:42:58 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ bool	init_philosophers(t_philo_env *p_env)
 	while (i < p_env->num_of_philo)
 	{
 		p_env->philo[i].id = philo_num;
+		p_env->philo[i].meal_time = 0;
+		p_env->philo[i].num_of_forks = 0;
+		p_env->philo[i].right_fork_id = philo_num - 1;
+		p_env->philo[i].left_fork_id = philo_num % p_env->num_of_philo;
 		if (pthread_mutex_init(&(p_env->philo[i].mutex_meal_time), NULL) != 0)
 			return (free_and_put_error_and_exit(p_env, "mutex init error."));
 		i++;
