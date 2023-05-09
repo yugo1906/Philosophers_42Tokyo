@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling_and_free.c                          :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:30:27 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:52:02 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/10 08:30:38 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,15 @@ bool	put_error_end_exit(char *str)
 	return (EXIT_FAILURE);
 }
 
-bool	free_and_put_error_and_exit(t_philo_env *p_env, char *str)
+bool	put_error_and_philo_free_exit(t_philo_env *p_env, char *s)
 {
 	free(p_env->philo);
-	return (put_error_end_exit(str));
+	return (put_error_end_exit(s));
+}
+
+bool	put_error_and_all_free_exit(t_philo_env *p_env, char *s)
+{
+	free(p_env->philo);
+	free(p_env->fork);
+	return (put_error_end_exit(s));
 }

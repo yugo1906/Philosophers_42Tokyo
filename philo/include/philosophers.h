@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 09:28:47 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/10 08:44:27 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,37 @@
 
 typedef struct s_philo
 {
-	unsigned int	id;
-	unsigned long	meal_time;
-	unsigned int	num_of_forks;
-	unsigned int	right_fork_id;
-	unsigned int	left_fork_id;
-	pthread_mutex_t	mutex_meal_time;
-}					t_philo;
+	unsigned int		id;
+	unsigned long		meal_time;
+	unsigned int		num_of_forks;
+	unsigned int		right_fork_id;
+	unsigned int		left_fork_id;
+	pthread_mutex_t		mutex_meal_time;
+	struct s_philo_env	*p_env;
+}						t_philo;
 
 typedef struct s_philo_env
 {
-	unsigned int	num_of_philo;
-	unsigned int	time_to_die;
-	unsigned int	meal_time;
-	unsigned int	sleep_time;
-	unsigned int	num_of_must_eat;
-	t_philo			*philo;
-}					t_philo_env;
+	unsigned int		num_of_philo;
+	unsigned int		time_to_die;
+	unsigned int		meal_time;
+	unsigned int		sleep_time;
+	unsigned int		num_of_must_eat;
+	t_philo				*philo;
+	pthread_mutex_t		*fork;
+}						t_philo_env;
 
-bool				is_validate_arg(int argc, char **argv);
-int					ft_atoi(const char *str);
-int					ft_isdigit(int c);
-bool				init_philo_env(int argc, char **argv, t_philo_env *p_env);
-void				put_time_in_ms(struct timeval *tv);
-bool				init_philosophers(t_philo_env *p_env);
-bool				free_and_put_error_and_exit(t_philo_env *p_env, char *str);
-bool				put_error_end_exit(char *str);
+bool					is_validate_arg(int argc, char **argv);
+int						ft_atoi(const char *str);
+int						ft_isdigit(int c);
+bool					init_philo_env(int argc, char **argv,
+							t_philo_env *p_env);
+void					put_time_in_ms(struct timeval *tv);
+bool					init_philosophers(t_philo_env *p_env);
+bool	put_error_and_philo_free_exit(t_philo_env *p_env,
+									char *s);
+bool	put_error_and_all_free_exit(t_philo_env *p_env,
+									char *s);
+bool					put_error_end_exit(char *str);
+bool					create_philo_thread(t_philo_env *p_env);
 #endif

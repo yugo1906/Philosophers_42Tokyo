@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 09:42:58 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/10 08:31:59 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ bool	init_philosophers(t_philo_env *p_env)
 	p_env->philo = (t_philo *)malloc(sizeof(t_philo) * p_env->num_of_philo);
 	if (p_env->philo == NULL)
 		return (ERROR);
+	p_env->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* p_env->num_of_philo);
+	if (p_env->fork == NULL)
+		return (put_error_and_philo_free_exit(p_env, "fork malloc error."));
 	while (i < p_env->num_of_philo)
 	{
 		p_env->philo[i].id = philo_num;
@@ -43,7 +47,7 @@ bool	init_philosophers(t_philo_env *p_env)
 		p_env->philo[i].right_fork_id = philo_num - 1;
 		p_env->philo[i].left_fork_id = philo_num % p_env->num_of_philo;
 		if (pthread_mutex_init(&(p_env->philo[i].mutex_meal_time), NULL) != 0)
-			return (free_and_put_error_and_exit(p_env, "mutex init error."));
+			return (put_error_and_all_free_exit(p_env, "mutex init error."));
 		i++;
 		philo_num++;
 	}
