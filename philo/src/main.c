@@ -6,26 +6,20 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:25:44 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:03:03 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
 // todo: テストコード_課題提出前に削除
-void		test_philo(t_philo_env *p_env);
+void	test_philo(t_philo_env *p_env);
 // ### memo
 // 1st arg : number of philosophers
 // 2nd arg : time to die
 // 3rd arg : time to eat
 // 4th arg : time to sleep
 // 5th arg : [number_of_times_each_philosopher_must_eat]
-
-static bool	put_error_end_exit(char *str)
-{
-	printf("ERROR: %s\n", str);
-	return (EXIT_FAILURE);
-}
 
 // todo: メモリーリークテスト_課題提出前に削除
 // __attribute__((destructor))
@@ -42,7 +36,7 @@ int	main(int argc, char **argv)
 	init_philo_env(argc, argv, &p_env);
 	if (init_philosophers(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philosophers."));
-	free_memory_philosophers(&p_env);
+	free(p_env.philo);
 	// todo: テスト実行関数_課題提出前に削除
 	test_philo(&p_env);
 	return (EXIT_SUCCESS);
@@ -50,9 +44,9 @@ int	main(int argc, char **argv)
 
 // todo: テストコード_課題提出前に削除
 
-void		test_put_philo(t_philo_env *p_env);
-void		*start_routine(void *arg);
-void		test_pthread_create(void);
+void	test_put_philo(t_philo_env *p_env);
+void	*start_routine(void *arg);
+void	test_pthread_create(void);
 
 void	test_philo(t_philo_env *p_env)
 {

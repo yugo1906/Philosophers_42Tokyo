@@ -50,6 +50,6 @@ int					ft_isdigit(int c);
 bool				init_philo_env(int argc, char **argv, t_philo_env *p_env);
 void				put_time_in_ms(struct timeval *tv);
 bool				init_philosophers(t_philo_env *p_env);
-void				free_memory_philosophers(t_philo_env *p_env);
-
+bool				free_and_put_error_and_exit(t_philo_env *p_env, char *str);
+bool				put_error_end_exit(char *str);
 #endif
