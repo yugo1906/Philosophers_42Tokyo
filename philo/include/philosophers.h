@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 08:25:10 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/09 09:02:07 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
 {
 	unsigned int	id;
 	unsigned long	meal_time;
-	unsigned int	fork;
+	unsigned int	num_of_forks;
 	unsigned int	right_fork_id;
 	unsigned int	left_fork_id;
 	pthread_mutex_t	mutex_meal_time;
