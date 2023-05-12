@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/09 09:03:03 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/11 09:29:20 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ int	main(int argc, char **argv)
 
 	if (is_validate_arg(argc, argv) == ERROR)
 		return (put_error_end_exit("Invalid argument."));
-	init_philo_env(argc, argv, &p_env);
+	if (init_philo_env(argc, argv, &p_env) == ERROR)
+		return (put_error_end_exit("Failed to initialize philo_env."));
 	if (init_philosophers(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philosophers."));
+	if (create_philo_thread(&p_env) == ERROR)
+		return (put_error_end_exit("Failed to create philo_thread."));
+	// test_philo(&p_env);
 	free(p_env.philo);
+	free(p_env.fork);
 	// todo: テスト実行関数_課題提出前に削除
-	test_philo(&p_env);
 	return (EXIT_SUCCESS);
 }
 

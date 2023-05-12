@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/10 08:44:27 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/10 09:38:33 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,17 @@ typedef struct s_philo_env
 	unsigned int		num_of_must_eat;
 	t_philo				*philo;
 	pthread_mutex_t		*fork;
+	pthread_mutex_t		mutex_end;
 }						t_philo_env;
 
-bool					is_validate_arg(int argc, char **argv);
-int						ft_atoi(const char *str);
-int						ft_isdigit(int c);
-bool					init_philo_env(int argc, char **argv,
-							t_philo_env *p_env);
-void					put_time_in_ms(struct timeval *tv);
-bool					init_philosophers(t_philo_env *p_env);
-bool	put_error_and_philo_free_exit(t_philo_env *p_env,
-									char *s);
-bool	put_error_and_all_free_exit(t_philo_env *p_env,
-									char *s);
-bool					put_error_end_exit(char *str);
-bool					create_philo_thread(t_philo_env *p_env);
+bool	is_validate_arg(int argc, char **argv);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
+bool	init_philo_env(int argc, char **argv, t_philo_env *p_env);
+bool	init_philosophers(t_philo_env *p_env);
+bool	put_error_and_philo_free_exit(t_philo_env *p_env, char *str);
+bool	put_error_and_all_free_exit(t_philo_env *p_env, char *str);
+bool	put_error_end_exit(char *str);
+bool	create_philo_thread(t_philo_env *p_env);
+void	put_philo_log(t_philo *philo, char *str);
 #endif
