@@ -1,15 +1,19 @@
 NAME				=	philo
-CFLAGS			=	-Wall -Wextra -Werror -I ./include
+# CFLAGS			=	-Wall -Wextra -Werror -I ./include
+CFLAGS			=	-I ./include
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
+PHILO_DIR		=	philo_service/
 SRCS 				= main.c \
 							validation/validate_args.c \
 							func_utils/ft_atoi.c \
 							func_utils/ft_isdigit.c \
-							philo_service/init.c \
-							philo_service/put_philo_log.c \
-							philo_service/error_handling.c \
-							philo_service/philo_thread_logic.c
+							$(PHILO_DIR)init.c \
+							$(PHILO_DIR)put_philo_log.c \
+							$(PHILO_DIR)error_handling.c \
+							$(PHILO_DIR)create_thread.c \
+							$(PHILO_DIR)philo_routine_detail.c \
+							$(PHILO_DIR)monitor_routine_detail.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS 				= $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
