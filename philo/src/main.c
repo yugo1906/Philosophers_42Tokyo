@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/16 09:10:27 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:10:55 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv)
 	if (create_monitor_thread(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to create monitor_thread."));
 	if (create_philo_thread(&p_env) == ERROR)
-		return (put_error_end_exit("Failed to create philo_thread."));
+		return (EXIT_FAILURE);
 	// test_philo(&p_env);
 	free(p_env.philo);
 	free(p_env.fork);

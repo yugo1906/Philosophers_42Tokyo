@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 19:30:27 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/13 05:11:04 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:07:57 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	put_error_end_exit(char *str)
 {
 	printf("ERROR: %s\n", str);
-	return (EXIT_FAILURE);
+	return (ERROR);
 }
 
 bool	put_error_and_philo_free_exit(t_philo_env *p_env, char *str)

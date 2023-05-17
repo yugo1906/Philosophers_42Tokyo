@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:42:49 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/17 08:54:33 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/18 00:10:26 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ bool	create_philo_thread(t_philo_env *p_env)
 	{
 		if (pthread_create(&tid, NULL, philo_routine, &p_env->philo[i]) != 0)
 			return (put_error_and_all_free_exit(p_env, "philo_create_thread."));
-		if (pthread_detach(tid))
+		if (pthread_detach(tid) == 0)
 			return (put_error_and_all_free_exit(p_env, "philo_detach_thread."));
 		i++;
 	}
-	return (NULL);
+	return (NOT_ERROR);
 }
 
 void	*monitor_routine(void *a_philosopher)
