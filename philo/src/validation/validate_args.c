@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:41:05 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/07 11:24:34 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:54:52 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	is_validate_arg(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_validate_digit(argv[i]))
+		if (is_validate_digit(argv[i]))
 			return (ERROR);
 		i++;
 	}
@@ -66,7 +66,7 @@ static bool	is_validate_argc_5(int argc, char **argv)
 
 static bool	is_validate_argc_6(int argc, char **argv)
 {
-	if (!is_validate_argc_5((argc - 1), argv))
+	if (is_validate_argc_5((argc - 1), argv))
 		return (ERROR);
 	if (ft_atoi(argv[5]) < 1)
 		return (ERROR);
