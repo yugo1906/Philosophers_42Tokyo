@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/21 22:49:05 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:45:32 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static bool	init_all_mutexes(t_philo_env *p_env)
 		return (ERROR);
 	if (pthread_mutex_init(&(p_env->mutex_is_dead), NULL) != 0)
 		return (ERROR);
-	if (pthread_mutex_init(&(p_env->mutex_last_meal_time), NULL) != 0)
+	if (pthread_mutex_init(&(p_env->mutex_meal_time), NULL) != 0)
 		return (ERROR);
-	if (pthread_mutex_init(&(p_env->mutex_philo_finish_meal_count), NULL) != 0)
+	if (pthread_mutex_init(&(p_env->mutex_max_meal_count), NULL) != 0)
 		return (ERROR);
 	return (NOT_ERROR);
 }
@@ -37,8 +37,8 @@ static bool	init_all_mutexes(t_philo_env *p_env)
 bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 {
 	p_env->num_of_philo = ft_atoi(argv[1]);
-	p_env->time_to_die = ft_atoi(argv[2]);
-	p_env->time_to_eat = ft_atoi(argv[3]);
+	p_env->t_t_die = ft_atoi(argv[2]);
+	p_env->t_t_eat = ft_atoi(argv[3]);
 	p_env->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 		p_env->max_meal_count = ft_atoi(argv[5]);
@@ -55,24 +55,22 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 		return (put_error_and_philo_free_exit(p_env, "fork malloc error."));
 	if (init_all_mutexes(p_env) == ERROR)
 		return (ERROR);
+	p_env->last_meal_time = get_now_msec();
 	return (NOT_ERROR);
 }
 
 void	init_philosophers(t_philo_env *p_env)
 {
-	struct timeval	tv_now;
 	unsigned long	msec;
 	unsigned int	i;
 	unsigned int	philo_num;
 
-	gettimeofday(&tv_now, NULL);
-	msec = tv_now.tv_sec * SEC_TO_MSEC + tv_now.tv_usec / USEC_TO_MSEC;
+	msec = get_now_msec();
 	i = 0;
 	philo_num = 0;
 	while (i < p_env->num_of_philo)
 	{
 		p_env->philo[i].id = ++philo_num;
-		p_env->philo[i].last_meal_time = msec;
 		p_env->philo[i].right_fork_id = philo_num - 1;
 		p_env->philo[i].left_fork_id = philo_num % p_env->num_of_philo;
 		p_env->philo[i].num_of_meal = 0;

@@ -6,16 +6,37 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 09:30:06 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/21 23:24:09 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/23 09:44:28 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+unsigned long	get_now_msec(void)
+{
+	struct timeval	tv_now;
+	unsigned long	msec;
+
+	gettimeofday(&tv_now, NULL);
+	msec = tv_now.tv_sec * SEC_TO_MSEC + tv_now.tv_usec / USEC_TO_MSEC;
+	return (msec);
+}
+
 bool	is_starving(t_philo *philo, t_philo_env *p_env, unsigned long now_msec)
 {
-	if ((now_msec - philo->last_meal_time) > p_env->time_to_die)
+	unsigned long	msec;
+
+	if ((now_msec - p_env->last_meal_time) > p_env->t_t_die)
+	{
+		if (p_env->is_dead)
+			return (PHILO_DEAD);
+		pthread_mutex_lock(&(p_env->mutex_is_dead));
+		p_env->is_dead = true;
+		pthread_mutex_unlock(&(philo->p_env->mutex_is_dead));
+		msec = get_now_msec();
+		put_philo_log(philo, p_env, DIED, msec);
 		return (PHILO_DEAD);
+	}
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 
@@ -40,8 +61,8 @@ void	set_status_dead_and_put_log(t_philo *philo, t_philo_env *p_env)
 		return ;
 	}
 	p_env->is_dead = true;
-	pthread_mutex_unlock(&(philo->p_env->mutex_is_dead));
 	gettimeofday(&tv_now, NULL);
 	msec = tv_now.tv_sec * SEC_TO_MSEC + tv_now.tv_usec / USEC_TO_MSEC;
 	put_philo_log(philo, p_env, DIED, msec);
+	pthread_mutex_unlock(&(philo->p_env->mutex_is_dead));
 }
