@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/23 09:30:33 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/24 09:25:37 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	test_philo(t_philo_env *p_env);
 int	main(int argc, char **argv)
 {
 	t_philo_env	p_env;
-	pthread_t	monitor_tid;
 
 	if (is_validate_arg(argc, argv) == ERROR)
 		return (put_error_end_exit("Invalid argument."));
@@ -39,9 +38,8 @@ int	main(int argc, char **argv)
 	init_philosophers(&p_env);
 	if (create_philo_thread(&p_env) == ERROR)
 		return (EXIT_FAILURE);
-	if (create_monitor_thread(&monitor_tid, &p_env) == ERROR)
+	if (create_monitor_thread(&p_env) == ERROR)
 		return (put_error_end_exit("Failed to create monitor_thread."));
-	pthread_join(monitor_tid, NULL);
 	// test_philo(&p_env);
 	free(p_env.philo);
 	free(p_env.fork);
@@ -57,12 +55,11 @@ void	test_pthread_create(void);
 
 void	test_philo(t_philo_env *p_env)
 {
-	struct timeval time;
-	unsigned long tmp_time;
+	struct timeval	time;
+	unsigned long	tmp_time;
+
 	gettimeofday(&time, NULL);
-
 	tmp_time = time.tv_sec * 1000 + time.tv_usec / 1000;
-
 	printf("%lu\n", tmp_time);
 	// test_put_philo(p_env);
 	// test_pthread_create();

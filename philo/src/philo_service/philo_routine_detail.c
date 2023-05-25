@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 08:10:09 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/23 09:56:11 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/25 22:40:21 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,12 @@ bool	take_fork_right_start(t_philo *philo, t_philo_env *p_env)
 	pthread_mutex_lock(&(p_env->fork[philo->right_fork_id]));
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_check_finish(p_env) || is_starving(philo, p_env, msec))
-	{
-		pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
-	put_philo_log(philo, p_env, R_TAKE_FORK, msec);
+	put_philo_log(philo, p_env, TAKE_FORK, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
 	pthread_mutex_lock(&(p_env->fork[philo->left_fork_id]));
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_check_finish(p_env) || is_starving(philo, p_env, msec))
-	{
-		pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
-		pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
-	put_philo_log(philo, p_env, L_TAKE_FORK, msec);
-	pthread_mutex_unlock(&(p_env->mutex_put_log));
+	put_philo_log(philo, p_env, TAKE_FORK, msec);
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 
@@ -51,75 +35,62 @@ bool	take_fork_left_start(t_philo *philo, t_philo_env *p_env)
 	pthread_mutex_lock(&(p_env->fork[philo->left_fork_id]));
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_check_finish(p_env) || is_starving(philo, p_env, msec))
-	{
-		pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
-	put_philo_log(philo, p_env, L_TAKE_FORK, msec);
+	put_philo_log(philo, p_env, TAKE_FORK, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
 	pthread_mutex_lock(&(p_env->fork[philo->right_fork_id]));
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_check_finish(p_env) || is_starving(philo, p_env, msec))
-	{
-		pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
-		pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
-	put_philo_log(philo, p_env, R_TAKE_FORK, msec);
-	pthread_mutex_unlock(&(p_env->mutex_put_log));
+	put_philo_log(philo, p_env, TAKE_FORK, msec);
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 
 bool	eat_philo(t_philo *philo, t_philo_env *p_env)
 {
 	unsigned long	msec;
+	unsigned long	usec;
+	struct timeval	now;
 
-	pthread_mutex_lock(&(p_env->mutex_put_log));
+	usec = get_now_usec();
 	msec = get_now_msec();
-	if (is_starving(philo, p_env, msec) || is_check_finish(p_env))
+	if (is_starving(philo, p_env, usec))
 	{
+		pthread_mutex_unlock(&(p_env->mutex_put_log));
 		pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
 		pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
+		return (PHILO_DEAD);
 	}
+	gettimeofday(&now, NULL);
 	put_philo_log(philo, p_env, EATING, msec);
-	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	usleep(p_env->t_t_eat);
-	pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
-	pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
 	pthread_mutex_lock(&(p_env->mutex_meal_time));
-	pthread_mutex_lock(&(p_env->mutex_meal_time));
-	p_env->last_meal_time = msec;
+	philo->last_meal_time = usec;
 	philo->num_of_meal++;
 	if (philo->num_of_meal == p_env->max_meal_count)
 		++p_env->philo_finish_meal_count;
 	pthread_mutex_unlock(&(p_env->mutex_meal_time));
+	pthread_mutex_unlock(&(p_env->mutex_put_log));
+	while (get_now_usec() - philo->last_meal_time < p_env->t_t_eat * MSEC_TO_USEC)
+		usleep(5);
+	util_wait_usleep(now.tv_sec * 1000000 + now.tv_usec, p_env->t_t_eat);
+	pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
+	pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 
 bool	sleep_philo(t_philo *philo, t_philo_env *p_env)
 {
 	unsigned long	msec;
+	unsigned long	usec;
+	struct timeval	now;
 
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_check_finish(p_env) || is_starving(philo, p_env, msec))
-	{
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
+	usec = get_now_usec();
+	gettimeofday(&now, NULL);
 	put_philo_log(philo, p_env, SLEEPING, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	usleep(p_env->sleep_time);
+	while (get_now_usec() - philo->last_meal_time < p_env->sleep_time * MSEC_TO_USEC)
+		usleep(5);
+	util_wait_usleep(now.tv_sec * 1000000 + now.tv_usec, p_env->sleep_time);
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 
@@ -129,12 +100,6 @@ bool	think_philo(t_philo *philo, t_philo_env *p_env)
 
 	pthread_mutex_lock(&(p_env->mutex_put_log));
 	msec = get_now_msec();
-	if (is_starving(philo, p_env, msec) || is_check_finish(p_env))
-	{
-		set_status_dead_and_put_log(philo, p_env);
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return (PHILO_DEAD_OR_FINISH);
-	}
 	put_philo_log(philo, p_env, THINKING, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
 	return (PHILO_ALIVE_AND_NOT_FINISH);

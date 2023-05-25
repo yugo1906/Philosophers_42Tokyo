@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:18:23 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/23 08:55:15 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:29:12 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,13 @@ void	 put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status,
 
 	// 動作確認用、RとLのフォーク
 	if (status == DIED)
-		printf("%lu %d %s\n", msec, philo->id, str);
-	if (p_env->is_dead)
 	{
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-		return ;
+		if(!(p_env->is_dead_myself_or_other_philo))
+			printf("%lu %d %s\n", msec, philo->id, str);
+		return;
 	}
-	if (status == R_TAKE_FORK)
-		str = "has right fork";
-	else if (status == L_TAKE_FORK)
-		str = "has left fork";
+	if (p_env->is_dead_myself_or_other_philo)
+		return ;
 	else if (status == TAKE_FORK)
 		str = "has taken a fork";
 	else if (status == EATING)
