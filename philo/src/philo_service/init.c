@@ -6,13 +6,13 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 20:11:43 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:51:04 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static bool	init_all_mutexes(t_philo_env *p_env)
+bool	init_all_mutexes(t_philo_env *p_env)
 {
 	unsigned int	i;
 
@@ -60,8 +60,6 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 			* p_env->num_of_philo);
 	if (p_env->fork == NULL)
 		return (put_error_and_philo_free_exit(p_env, "fork malloc error."));
-	if (init_all_mutexes(p_env) == ERROR)
-		return (ERROR);
 	p_env->start_time = get_now_usec();
 	return (NOT_ERROR);
 }

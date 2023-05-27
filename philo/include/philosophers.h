@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 20:07:46 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:51:33 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,15 +97,15 @@ bool			take_left_fork_philo(t_philo *philo, t_philo_env *p_env);
 bool			eat_philo(t_philo *philo, t_philo_env *p_env);
 bool			sleep_philo(t_philo *philo, t_philo_env *p_env);
 bool			think_philo(t_philo *philo, t_philo_env *p_env);
-// void			set_status_dead_and_put_log(t_philo *philo, t_philo_env *p_env);
 bool			is_starving(t_philo *philo, t_philo_env *p_env, unsigned long now_msec);
 bool			is_check_finish(t_philo_env *p_env);
 bool			take_fork_left_start(t_philo *philo, t_philo_env *p_env);
 bool			take_fork_right_start(t_philo *philo, t_philo_env *p_env);
 unsigned long	get_now_msec(void);
 unsigned long	get_now_usec(void);
-void	philo_usleep(long start_time_us, long wait_time_us, t_philo_env *p_env);
+void			philo_usleep(long start_time_us, long wait_time_us, t_philo_env *p_env);
 bool			all_pthread_mutex_destroy(t_philo_env *p_env);
+bool			init_all_mutexes(t_philo_env *p_env);
 
 
 #endif

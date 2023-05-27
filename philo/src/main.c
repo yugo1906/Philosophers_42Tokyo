@@ -6,13 +6,11 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 20:25:00 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:53:04 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-// todo: メモリーリークテスト_課題提出前に削除
 
 int	main(int argc, char **argv)
 {
@@ -24,13 +22,15 @@ int	main(int argc, char **argv)
 		return (put_error_end_exit("Invalid argument."));
 	if (init_philo_env(argc, argv, &p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philo_env."));
+	if (init_all_mutexes(&p_env) == ERROR)
+		return (put_error_and_all_free_exit(&p_env, "Failed init mutexes."));
 	init_philosophers(&p_env);
 	if (create_monitor_thread(&monitor_tid, &p_env) == ERROR)
-		return (put_error_end_exit("Failed to create monitor_thread."));
+		return (put_error_and_all_free_exit(&p_env, "Failed monitor create."));
 	if (create_philo_thread(&p_env) == ERROR)
-		return (EXIT_FAILURE);
+		return (put_error_and_all_free_exit(&p_env, "Failed philo create."));
 	if (pthread_join(monitor_tid, NULL))
-		return (put_error_end_exit("Failed to join monitor_thread."));
+		return (put_error_and_all_free_exit(&p_env, "Failed monitor join."));
 	all_pthread_mutex_destroy(&p_env);
 	free(p_env.philo);
 	free(p_env.fork);
