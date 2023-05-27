@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/24 08:58:54 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:09:20 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	init_philosophers(t_philo_env *p_env)
 		p_env->philo[i].right_fork_id = philo_num - 1;
 		p_env->philo[i].left_fork_id = philo_num % p_env->num_of_philo;
 		p_env->philo[i].num_of_meal = 0;
-		p_env->philo[i].last_meal_time = get_now_msec();
+		p_env->philo[i].last_meal_time = get_now_usec();
 		p_env->philo[i].is_dead = false;
 		p_env->philo[i].p_env = p_env;
 		i++;

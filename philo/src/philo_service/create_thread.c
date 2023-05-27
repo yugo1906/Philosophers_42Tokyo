@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 23:42:49 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/25 22:11:06 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:13:58 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,67 +54,54 @@ bool	create_philo_thread(t_philo_env *p_env)
 	{
 		if (pthread_create(&tid[i], NULL, philo_routine, &p_env->philo[i]) != 0)
 			return (put_error_and_all_free_exit(p_env, "philo_create_thread."));
-		if (pthread_detach(tid[i]) != 0)
-			return (put_error_and_all_free_exit(p_env, "philo_detach_thread."));
+		i++;
+	}
+	i = 0;
+	while (i < p_env->num_of_philo)
+	{
+		if (pthread_join(tid[i], NULL) != 0)
+			return (put_error_and_all_free_exit(p_env, "philo_join_thread."));
 		i++;
 	}
 	return (NOT_ERROR);
 }
 
-void	*monitoring(void *arg_philo)
+void	*monitor(void *arg_p_env)
 {
 	t_philo			*philo;
 	t_philo_env		*p_env;
-	unsigned long	time;
-
-	philo = (t_philo *)arg_philo;
-	p_env = philo->p_env;
-	usleep(200);
-	while (1)
-	{
-		// printf("%lu\n", get_now_msec() - philo->last_meal_time);
-		if (p_env->is_dead_myself_or_other_philo)
-			break ;
-		if (get_now_usec() - philo->last_meal_time > p_env->t_t_die * 1000)
-		{
-			pthread_mutex_lock(&(p_env->mutex_is_dead));
-			philo->is_dead = true;
-			pthread_mutex_unlock(&(p_env->mutex_is_dead));
-			break ;
-		}
-		if (is_check_finish(philo, p_env))
-			break ;
-		usleep(10000);
-	}
-	if (philo->is_dead)
-	{
-		pthread_mutex_lock(&(p_env->mutex_put_log));
-		put_philo_log(philo, p_env, DIED, get_now_msec());
-		p_env->is_dead_myself_or_other_philo = true;
-		pthread_mutex_unlock(&(p_env->mutex_put_log));
-	}
-	return (NULL);
-}
-
-bool	create_monitor_thread(t_philo_env *p_env)
-{
-	pthread_t		moni_tid[p_env->num_of_philo];
+	unsigned long	usec;
 	unsigned int	i;
 
 	i = 0;
-	while (i < p_env->num_of_philo)
+	p_env = (t_philo_env *)arg_p_env;
+	philo = p_env->philo;
+	usleep(p_env->t_t_die * MSEC_TO_USEC - 1000);
+	while (1)
 	{
-		if (pthread_create(&moni_tid[i], NULL, monitoring,
-				&p_env->philo[i]) != 0)
-			return (put_error_and_all_free_exit(p_env, "monit_create_thread."));
-		i++;
+		while (i < p_env->num_of_philo)
+		{
+			if (is_check_finish(p_env))
+				return (NULL);
+			usec = get_now_usec();
+			if (usec - philo[i].last_meal_time > p_env->t_t_die * MSEC_TO_USEC)
+			{
+				pthread_mutex_lock(&p_env->mutex_put_log);
+				put_philo_log(philo, p_env, DIED, usec / USEC_TO_MSEC);
+				p_env->is_dead_myself_or_other_philo = true;
+				pthread_mutex_unlock(&p_env->mutex_put_log);
+				return (NULL);
+			}
+			i++;
+		}
+		i = 0;
+		usleep(8000);
 	}
-	i = 0;
-	while (i < p_env->num_of_philo)
-	{
-		if (pthread_join(moni_tid[i], NULL) != 0)
-			return (put_error_and_all_free_exit(p_env, "monit_join_thread."));
-		i++;
-	}
+}
+
+bool	create_monitor_thread(pthread_t *moni_tid, t_philo_env *p_env)
+{
+	if (pthread_create(moni_tid, NULL, monitor, p_env) != 0)
+		return (put_error_and_all_free_exit(p_env, "monitor_create_thread."));
 	return (NOT_ERROR);
 }

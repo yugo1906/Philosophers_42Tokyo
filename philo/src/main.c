@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/24 09:25:37 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 11:40:42 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,32 @@ void	test_philo(t_philo_env *p_env);
 // 5th arg : [number_of_times_each_philosopher_must_eat]
 
 // todo: メモリーリークテスト_課題提出前に削除
-// __attribute__((destructor))
-// static void destructor() {
-//     system("leaks -q philo");
-// }
+__attribute__((destructor)) static void destructor()
+{
+	system("leaks -q philo");
+}
 
 int	main(int argc, char **argv)
 {
 	t_philo_env	p_env;
+	pthread_t	moni_tid;
+	bool	is_thread_error;
 
 	if (is_validate_arg(argc, argv) == ERROR)
 		return (put_error_end_exit("Invalid argument."));
 	if (init_philo_env(argc, argv, &p_env) == ERROR)
 		return (put_error_end_exit("Failed to initialize philo_env."));
 	init_philosophers(&p_env);
+	if (create_monitor_thread(&moni_tid, &p_env) == ERROR)
+		return (put_error_end_exit("Failed to create monitor_thread."));
 	if (create_philo_thread(&p_env) == ERROR)
 		return (EXIT_FAILURE);
-	if (create_monitor_thread(&p_env) == ERROR)
-		return (put_error_end_exit("Failed to create monitor_thread."));
-	// test_philo(&p_env);
+	if(pthread_join(moni_tid, NULL))
+		return (put_error_end_exit("Failed to join monitor_thread."));
+	all_pthread_mutex_destroy(&p_env);
 	free(p_env.philo);
 	free(p_env.fork);
+	// test_philo(&p_env);
 	// todo: テスト実行関数_課題提出前に削除
 	return (EXIT_SUCCESS);
 }

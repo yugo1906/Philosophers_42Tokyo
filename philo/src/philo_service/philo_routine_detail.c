@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 08:10:09 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/25 22:40:21 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:00:49 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,16 @@ bool	eat_philo(t_philo *philo, t_philo_env *p_env)
 {
 	unsigned long	msec;
 	unsigned long	usec;
-	struct timeval	now;
 
 	usec = get_now_usec();
 	msec = get_now_msec();
-	if (is_starving(philo, p_env, usec))
+	if (is_starving(philo, p_env, usec) || is_check_finish(p_env))
 	{
 		pthread_mutex_unlock(&(p_env->mutex_put_log));
 		pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
 		pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
 		return (PHILO_DEAD);
 	}
-	gettimeofday(&now, NULL);
 	put_philo_log(philo, p_env, EATING, msec);
 	pthread_mutex_lock(&(p_env->mutex_meal_time));
 	philo->last_meal_time = usec;
@@ -68,9 +66,7 @@ bool	eat_philo(t_philo *philo, t_philo_env *p_env)
 		++p_env->philo_finish_meal_count;
 	pthread_mutex_unlock(&(p_env->mutex_meal_time));
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	while (get_now_usec() - philo->last_meal_time < p_env->t_t_eat * MSEC_TO_USEC)
-		usleep(5);
-	util_wait_usleep(now.tv_sec * 1000000 + now.tv_usec, p_env->t_t_eat);
+	philo_usleep(usec, p_env->t_t_eat * SEC_TO_MSEC);
 	pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
 	pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
 	return (PHILO_ALIVE_AND_NOT_FINISH);
@@ -88,9 +84,7 @@ bool	sleep_philo(t_philo *philo, t_philo_env *p_env)
 	gettimeofday(&now, NULL);
 	put_philo_log(philo, p_env, SLEEPING, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	while (get_now_usec() - philo->last_meal_time < p_env->sleep_time * MSEC_TO_USEC)
-		usleep(5);
-	util_wait_usleep(now.tv_sec * 1000000 + now.tv_usec, p_env->sleep_time);
+	philo_usleep(usec, p_env->sleep_time * SEC_TO_MSEC);
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 

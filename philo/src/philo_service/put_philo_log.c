@@ -6,25 +6,24 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:18:23 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/25 21:29:12 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:16:09 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	 put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status,
-		unsigned long msec)
+void	put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status, unsigned long msec)
 {
 	char	*str;
 
+	if (p_env->is_dead_myself_or_other_philo)
+		return ;
 	str = "died";
-
-	// 動作確認用、RとLのフォーク
 	if (status == DIED)
 	{
-		if(!(p_env->is_dead_myself_or_other_philo))
+		if (!(p_env->is_dead_myself_or_other_philo))
 			printf("%lu %d %s\n", msec, philo->id, str);
-		return;
+		return ;
 	}
 	if (p_env->is_dead_myself_or_other_philo)
 		return ;
