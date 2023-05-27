@@ -6,13 +6,13 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 11:18:23 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 12:16:09 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:08:25 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status, unsigned long msec)
+void	put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status, unsigned long usec)
 {
 	char	*str;
 
@@ -22,7 +22,7 @@ void	put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status, un
 	if (status == DIED)
 	{
 		if (!(p_env->is_dead_myself_or_other_philo))
-			printf("%lu %d %s\n", msec, philo->id, str);
+			printf("%lu %d %s\n", (usec - p_env->start_time) / 1000, philo->id, str);
 		return ;
 	}
 	if (p_env->is_dead_myself_or_other_philo)
@@ -35,5 +35,5 @@ void	put_philo_log(t_philo *philo, t_philo_env *p_env, t_philo_status status, un
 		str = "is sleeping";
 	else if (status == THINKING)
 		str = "is thinking";
-	printf("%lu %d %s\n", msec, philo->id, str);
+	printf("%lu %d %s\n",  (usec - p_env->start_time) / 1000, philo->id, str);
 }

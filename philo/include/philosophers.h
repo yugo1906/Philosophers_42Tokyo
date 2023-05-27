@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 13:03:15 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:07:46 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@
 # define NOT_ALL_PHILO_FINISHED_MAX_MEAL_COUNT 0
 # define MIN_USLEEP_ADJUSTMENT_US 50
 # define MAX_USLEEP_ADJUSTMENT_US 1000
-
-
+# define USLEEP_ONE_MSEC 1000
 
 typedef enum e_p_status
 {
@@ -69,6 +68,7 @@ typedef struct s_philo_env
 	unsigned int		usleep_adjustment_us;
 	unsigned long		max_meal_count;
 	unsigned long		philo_finish_meal_count;
+	unsigned long		start_time;
 	bool				is_dead_myself_or_other_philo;
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		mutex_put_log;

@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 13:03:34 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:11:43 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 	p_env->t_t_eat = ft_atoi(argv[3]);
 	p_env->sleep_time = ft_atoi(argv[4]);
 	p_env->usleep_adjustment_us = p_env->num_of_philo;
-	if(p_env->usleep_adjustment_us < MIN_USLEEP_ADJUSTMENT_US)
+	if (p_env->usleep_adjustment_us < MIN_USLEEP_ADJUSTMENT_US)
 		p_env->usleep_adjustment_us = MIN_USLEEP_ADJUSTMENT_US;
-	if(p_env->usleep_adjustment_us > MAX_USLEEP_ADJUSTMENT_US)
+	if (p_env->usleep_adjustment_us > MAX_USLEEP_ADJUSTMENT_US)
 		p_env->usleep_adjustment_us = MAX_USLEEP_ADJUSTMENT_US;
 	if (argc == 6)
 		p_env->max_meal_count = ft_atoi(argv[5]);
@@ -62,6 +62,7 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 		return (put_error_and_philo_free_exit(p_env, "fork malloc error."));
 	if (init_all_mutexes(p_env) == ERROR)
 		return (ERROR);
+	p_env->start_time = get_now_usec();
 	return (NOT_ERROR);
 }
 
