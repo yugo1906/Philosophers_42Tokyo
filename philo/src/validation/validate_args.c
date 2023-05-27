@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:41:05 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 20:27:20 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 21:37:43 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	is_validate_argc_5(int argc, char **argv)
 {
 	int	i;
 
-	if(ft_atoi(argv[1]) < 1)
+	if (ft_atoi(argv[1]) < 1)
 		return (ERROR);
 	i = 2;
 	while (i < argc)

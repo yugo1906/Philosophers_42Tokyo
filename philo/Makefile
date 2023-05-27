@@ -11,8 +11,10 @@ SRCS 				= main.c \
 							$(PHILO_DIR)init.c \
 							$(PHILO_DIR)put_philo_log.c \
 							$(PHILO_DIR)error_handling.c \
-							$(PHILO_DIR)create_thread.c \
+							$(PHILO_DIR)philo_routine.c \
 							$(PHILO_DIR)philo_routine_detail.c \
+							$(PHILO_DIR)monitor_routine.c \
+							$(PHILO_DIR)monitor_routine_detail.c \
 							$(PHILO_DIR)routine_utils_func.c \
 							$(PHILO_DIR)philo_free_utils.c
 SRCS				:= $(addprefix $(SRC_DIR)/, $(SRCS))
