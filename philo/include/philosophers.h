@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 22:17:21 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:35:28 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define PHILO_DEAD_OR_FINISH 1
 # define ALL_PHILO_FINISHED_MAX_MEAL_COUNT 1
 # define NOT_ALL_PHILO_FINISHED_MAX_MEAL_COUNT 0
-# define MIN_USLEEP_ADJUSTMENT_US 50
+# define MIN_USLEEP_ADJUSTMENT_US 10
 # define MAX_USLEEP_ADJUSTMENT_US 1000
 # define USLEEP_ONE_MSEC 1000
 

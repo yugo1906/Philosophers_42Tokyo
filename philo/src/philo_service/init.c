@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 03:08:48 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 21:42:05 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:35:30 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	init_philo_env(int argc, char **argv, t_philo_env *p_env)
 	p_env->sleep_time = ft_atoi(argv[4]);
 	p_env->usleep_adjustment_us = p_env->num_of_philo;
 	if (p_env->usleep_adjustment_us < MIN_USLEEP_ADJUSTMENT_US)
-		p_env->usleep_adjustment_us = MIN_USLEEP_ADJUSTMENT_US;
+		p_env->usleep_adjustment_us = 0;
 	if (p_env->usleep_adjustment_us > MAX_USLEEP_ADJUSTMENT_US)
 		p_env->usleep_adjustment_us = MAX_USLEEP_ADJUSTMENT_US;
 	if (argc == 6)

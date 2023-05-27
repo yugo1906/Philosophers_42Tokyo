@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 09:30:06 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 20:21:29 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:35:48 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	philo_usleep(long start_time_us, long wait_time_us, t_philo_env *p_env)
 		usec_now = get_now_usec();
 		if (end_time_usec <= usec_now)
 			break ;
-		usleep(10);
+		usleep(5);
 	}
 	return ;
 }
