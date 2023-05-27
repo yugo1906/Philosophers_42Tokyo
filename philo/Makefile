@@ -1,5 +1,5 @@
 NAME				=	philo
-# CFLAGS			=	-Wall -Wextra -Werror -I ./include
+CFLAGS			=	-Wall -Wextra -Werror -I ./include
 CFLAGS			=	-I ./include
 SRC_DIR			=	./src
 OBJ_DIR			=	./obj
