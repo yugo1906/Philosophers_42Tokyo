@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 21:56:17 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 22:17:21 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,10 @@ bool					put_error_philo_free_exit(t_philo_env *p_env,
 bool					put_error_philo_fork_free_exit(t_philo_env *p_env,
 							char *str);
 bool					put_error_end_exit(char *str);
-bool					create_philo_thread(t_philo_env *p_env, t_philo *philo);
 bool					create_monitor_thread(pthread_t *moni_tid,
 							t_philo_env *p_env);
 void					put_philo_log(t_philo *philo, t_philo_env *p_env,
 							t_philo_status status, unsigned long msec);
-void					*p_routine(void *a_philosopher);
 bool					take_fork_philo(t_philo *philo, t_philo_env *p_env);
 bool					eat_philo(t_philo *philo, t_philo_env *p_env);
 bool					sleep_philo(t_philo *philo, t_philo_env *p_env);
@@ -111,5 +109,9 @@ bool					is_check_death(unsigned long usec, t_philo_env *p_env,
 							unsigned int i);
 bool					put_error_all_free_exit(t_philo_env *p_env, char *str);
 void					all_free(t_philo_env *p_env);
+bool					create_philo_thread(t_philo_env *p_env, t_philo *philo);
+bool					create_philo_thread_detail(t_philo_env *p_env,
+							t_philo *philo);
+void					*p_routine(void *a_philosopher);
 
 #endif
