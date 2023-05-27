@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 08:10:09 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 12:00:49 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:40:29 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ bool	eat_philo(t_philo *philo, t_philo_env *p_env)
 		++p_env->philo_finish_meal_count;
 	pthread_mutex_unlock(&(p_env->mutex_meal_time));
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	philo_usleep(usec, p_env->t_t_eat * SEC_TO_MSEC);
+	philo_usleep(usec, p_env->t_t_eat * SEC_TO_MSEC, p_env);
 	pthread_mutex_unlock(&(p_env->fork[philo->right_fork_id]));
 	pthread_mutex_unlock(&(p_env->fork[philo->left_fork_id]));
 	return (PHILO_ALIVE_AND_NOT_FINISH);
@@ -84,7 +84,7 @@ bool	sleep_philo(t_philo *philo, t_philo_env *p_env)
 	gettimeofday(&now, NULL);
 	put_philo_log(philo, p_env, SLEEPING, msec);
 	pthread_mutex_unlock(&(p_env->mutex_put_log));
-	philo_usleep(usec, p_env->sleep_time * SEC_TO_MSEC);
+	philo_usleep(usec, p_env->sleep_time * SEC_TO_MSEC, p_env);
 	return (PHILO_ALIVE_AND_NOT_FINISH);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 09:30:06 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 12:16:41 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:45:50 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	is_starving(t_philo *philo, t_philo_env *p_env, unsigned long now_usec)
 
 	if (p_env->is_dead_myself_or_other_philo == true)
 		return (PHILO_DEAD);
-	if (now_usec - philo->last_meal_time > p_env->t_t_die * 1000)
+	if (now_usec - philo->last_meal_time > p_env->t_t_die * MSEC_TO_USEC)
 	{
 		msec = get_now_msec();
 		put_philo_log(philo, p_env, DIED, msec);
@@ -56,12 +56,12 @@ bool	is_check_finish(t_philo_env *p_env)
 	return (NOT_ALL_PHILO_FINISHED_MAX_MEAL_COUNT);
 }
 
-void	philo_usleep(long start_time_us, long wait_time_us)
+void	philo_usleep(long start_time_us, long wait_time_us, t_philo_env *p_env)
 {
 	unsigned long	usec_now;
 	unsigned long	end_time_usec;
 
-	end_time_usec = start_time_us + wait_time_us - 50;
+	end_time_usec = start_time_us + wait_time_us - p_env->usleep_adjustment_us;
 	usleep(wait_time_us - wait_time_us / 10);
 	while (1)
 	{

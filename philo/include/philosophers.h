@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:20 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 10:50:41 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:03:15 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define PHILO_DEAD_OR_FINISH 1
 # define ALL_PHILO_FINISHED_MAX_MEAL_COUNT 1
 # define NOT_ALL_PHILO_FINISHED_MAX_MEAL_COUNT 0
+# define MIN_USLEEP_ADJUSTMENT_US 50
+# define MAX_USLEEP_ADJUSTMENT_US 1000
 
 
 
@@ -64,8 +66,9 @@ typedef struct s_philo_env
 	unsigned int		t_t_die;
 	unsigned int		t_t_eat;
 	unsigned int		sleep_time;
+	unsigned int		usleep_adjustment_us;
 	unsigned long		max_meal_count;
-	unsigned int		philo_finish_meal_count;
+	unsigned long		philo_finish_meal_count;
 	bool				is_dead_myself_or_other_philo;
 	pthread_mutex_t		*fork;
 	pthread_mutex_t		mutex_put_log;
@@ -101,7 +104,7 @@ bool			take_fork_left_start(t_philo *philo, t_philo_env *p_env);
 bool			take_fork_right_start(t_philo *philo, t_philo_env *p_env);
 unsigned long	get_now_msec(void);
 unsigned long	get_now_usec(void);
-void			philo_usleep(long start_time_us, long wait_time_ms);
+void	philo_usleep(long start_time_us, long wait_time_us, t_philo_env *p_env);
 bool			all_pthread_mutex_destroy(t_philo_env *p_env);
 
 
