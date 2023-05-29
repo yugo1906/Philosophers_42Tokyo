@@ -6,7 +6,7 @@
 /*   By: yughoshi <yughoshi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:15:15 by yughoshi          #+#    #+#             */
-/*   Updated: 2023/05/27 21:52:14 by yughoshi         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:41:25 by yughoshi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv)
 		return (put_error_philo_fork_free_exit(&p_env, "Failed philo."));
 	if (pthread_join(monitor_tid, NULL))
 		return (put_error_all_free_exit(&p_env, "Failed monitor join."));
-	all_pthread_mutex_destroy(&p_env);
+	if (all_pthread_mutex_destroy(&p_env))
+		return (put_error_all_free_exit(&p_env, "Failed mutex destroy."));
 	all_free(&p_env);
 	return (EXIT_SUCCESS);
 }
