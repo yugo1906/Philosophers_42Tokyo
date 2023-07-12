@@ -3,8 +3,7 @@
 - 「食事する哲学者のシミュレーション」をマルチスレッド処理で実装
 
 ## デモ動画
-
-https://github.com/yugo1906/Philosophers_42Tokyo/assets/89300571/e90c8b83-b997-4133-9738-87bebd209aa3
+https://github.com/yugo1906/Philosophers_42Tokyo/assets/89300571/bd6d82ac-5ea9-4e3d-8601-e529260c6b48
 
 ■動作実行時のコマンドライン引数についての説明。
 - 第一引数：哲学者の数（ = フォークの数)
